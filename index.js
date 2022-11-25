@@ -6,12 +6,13 @@ const PORT = 8000;
 const {getDatabase, ref, get, update} = require('firebase/database');
 
 const firebaseApp = firebase.initializeApp ({
-    apiKey: "AIzaSyB5-Gs1Y8AHH2pD6cVM0h7Skv_lDk_ZBwo",
-    authDomain: "lampwithesp32.firebaseapp.com",
-    projectId: "lampwithesp32",
-    storageBucket: "lampwithesp32.appspot.com",
-    messagingSenderId: "448902725351",
-    appId: "1:448902725351:web:ded5ad9c3f3db6faffec42"
+  apiKey: "AIzaSyDkDXEzV5L6OxDSd7CFiQwrGEBuQeg59-E",
+  authDomain: "espcam-9edcb.firebaseapp.com",
+  databaseURL: "https://espcam-9edcb-default-rtdb.firebaseio.com",
+  projectId: "espcam-9edcb",
+  storageBucket: "espcam-9edcb.appspot.com",
+  messagingSenderId: "851470719394",
+  appId: "1:851470719394:web:87be0f43da852b7f8abafb"
 }, 'firebaseApp');
 
 const db = getDatabase(firebaseApp);

@@ -1,11 +1,16 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const firebase = require('firebase/app');
+const firebase_app = require('firebase/app');
 const PORT = 8000;
 const {getDatabase, ref, get, update} = require('firebase/database');
+const fs = require('fs')
+const path = require('path')
 
-const firebaseApp = firebase.initializeApp ({
+
+
+
+const firebaseApp = firebase_app.initializeApp ({
   apiKey: "AIzaSyDkDXEzV5L6OxDSd7CFiQwrGEBuQeg59-E",
   authDomain: "espcam-9edcb.firebaseapp.com",
   databaseURL: "https://espcam-9edcb-default-rtdb.firebaseio.com",
@@ -15,16 +20,43 @@ const firebaseApp = firebase.initializeApp ({
   appId: "1:851470719394:web:87be0f43da852b7f8abafb"
 }, 'firebaseApp');
 
+const multer = require("multer");
+const upload = multer({ dest: 'tmp/' })
+const firebase_storage = require('firebase/storage');
+const { uploadBytes } = require("firebase/storage");
+
+
+const storage = firebase_storage.getStorage(firebaseApp);
+const storageRef = firebase_storage.ref(storage, 'images/vavazin.jpg');
+
+
 const db = getDatabase(firebaseApp);
+
+
 
 app.use(cors());
 
-app.post('/setLumin',function(req,res){
-    let luminosity = parseInt(req.query.luminosity);
-    update(ref(db, `/`), {
-        luminosity:luminosity,
-      });
-      res.send("luminosidade alterada!");
+app.post('/uploadImage',upload.single('file'),function(req,res){
+  
+    var fileName = req.file.path;
+    var filePath = path.join(__dirname, fileName);
+
+
+        fs.readFile(filePath, function(err,data){
+
+    if (!err) {
+        uploadBytes(storageRef, data).then((snapshot) => {
+            console.log('Uploaded a blob or file!');
+          });
+
+        
+        res.write("Imagem armazenada!");
+        res.end();
+    } else {
+        console.log(err);
+    }
+});
+    
 })
 
 app.get('/getLumin',async function(req,res){

@@ -38,6 +38,14 @@ app.get('/getMode',async function(req,res){
         }
     });
 })
+app.post('/setMode',function(req,res){
+    let mode = req.query.mode === "true";
+    update(ref(db, `/`), {
+        mode:mode,
+      });
+      res.send("modo alterado!");
+})
+
 app.listen(PORT, () => {
     console.log("server is running");
 })

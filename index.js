@@ -31,6 +31,13 @@ app.get('/getURLImage',function(req,res){
     
 })
 
+app.get('/getMode',async function(req,res){
+    await get(ref(db, `mode`)).then((snapshot) => {
+        if (snapshot.exists()) {
+            res.send(JSON.stringify({mode:snapshot.val()}));
+        }
+    });
+})
 app.listen(PORT, () => {
     console.log("server is running");
 })

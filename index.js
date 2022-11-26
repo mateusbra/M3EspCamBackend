@@ -23,7 +23,7 @@ const storage = firebase_storage.getStorage(firebaseApp);
 
 app.use(cors());
 
-app.post('/getURLImage',function(req,res){
+app.get('/getURLImage',function(req,res){
     
     getDownloadURL(firebase_storage.ref(storage, 'images/koo.jpg')).then((url) => {
         res.send(JSON.stringify({URL:url}))

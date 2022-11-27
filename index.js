@@ -4,7 +4,6 @@ const cors = require("cors");
 const firebase_app = require('firebase/app');
 const PORT = 8000;
 const {getDatabase, ref, get, update} = require('firebase/database');
-//const { getMessaging } = require('firebase/messaging');
 const { getDownloadURL } = require("firebase/storage");
 const firebaseApp = firebase_app.initializeApp ({
   apiKey: "AIzaSyDkDXEzV5L6OxDSd7CFiQwrGEBuQeg59-E",
@@ -15,26 +14,24 @@ const firebaseApp = firebase_app.initializeApp ({
   messagingSenderId: "851470719394",
   appId: "1:851470719394:web:87be0f43da852b7f8abafb"
 }, 'firebaseApp');
-
 const firebase_storage = require('firebase/storage');
-
-
 const db = getDatabase(firebaseApp);
 const storage = firebase_storage.getStorage(firebaseApp);
-//const messaging = getMessaging(firebaseApp);
 
 app.use(cors());
+
+app.use(bodyParser.json());
+
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Request-With, Content-Type, Accept");
     next();
 });
+
 app.get('/getURLImage',function(req,res){
-    
     getDownloadURL(firebase_storage.ref(storage, 'images/captura.png')).then((url) => {
         res.send(JSON.stringify({URL:url}))
-    })
-    
+    }) 
 })
 
 app.get('/getMode',async function(req,res){
@@ -44,6 +41,7 @@ app.get('/getMode',async function(req,res){
         }
     });
 })
+
 app.post('/setMode',function(req,res){
     let mode = req.query.mode === "true";
     update(ref(db, `/`), {
@@ -52,32 +50,6 @@ app.post('/setMode',function(req,res){
       res.send("modo alterado!");
 })
 
-app.post('/sendNotification',function(req,res){
-
-    messaging.getToken({vapidKey: "BIs381c3WGMjFyokj-Jj4N22qiCZIXrV1HOo7C0at1iFdmHZ3iikcJSlNcPM9sSupUQERntZlIpBckZGQ0l5Yc4"});
-
-
-    const registrationToken = 'u2FZMSYQzfq0_oMLLNn1H:APA91bEaK_V1Wac_EDsQYu9O5TLyLCSxJB-a__jBw403a8JA1zv5r8SbS_8NCOJM2G_77XDeo9lP96URx4g1oDpS4kAW6Ev8xyUHs9PU9rF8iEcEPIJKN2MkyqKF9uXQWOXvfC325GND';
-
-    const message = {
-      data: {
-        score: '850',
-        time: '2:45'
-      },
-      token: registrationToken
-    };
-    
-    // Send a message to the device corresponding to the provided
-    // registration token.
-    getMessaging().send(message)
-      .then((response) => {
-        // Response is a message ID string.
-        console.log('Successfully sent message:', response);
-      })
-      .catch((error) => {
-        console.log('Error sending message:', error);
-      });
-})
 app.listen(PORT, () => {
     console.log("server is running");
 })

@@ -21,7 +21,7 @@ const firebase_storage = require('firebase/storage');
 
 const db = getDatabase(firebaseApp);
 const storage = firebase_storage.getStorage(firebaseApp);
-const messaging = getMessaging(app);
+const messaging = getMessaging(firebaseApp);
 
 app.use(cors());
 app.use(function(req, res, next) {
@@ -53,7 +53,7 @@ app.post('/setMode',function(req,res){
 })
 
 app.post('/sendNotification',function(req,res){
-    const registrationTokens = [
+  /*  const registrationTokens = [
         'u2FZMSYQzfq0_oMLLNn1H:APA91bEaK_V1Wac_EDsQYu9O5TLyLCSxJB-a__jBw403a8JA1zv5r8SbS_8NCOJM2G_77XDeo9lP96URx4g1oDpS4kAW6Ev8xyUHs9PU9rF8iEcEPIJKN2MkyqKF9uXQWOXvfC325GND',
         // ...
         'YOUR_REGISTRATION_TOKEN_n'
@@ -72,7 +72,7 @@ app.post('/sendNotification',function(req,res){
   })
   .catch((error) => {
     console.log('Error subscribing to topic:', error);
-  });
+  });*/
 })
 app.listen(PORT, () => {
     console.log("server is running");

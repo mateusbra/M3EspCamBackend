@@ -4,7 +4,7 @@ const cors = require("cors");
 const firebase_app = require('firebase/app');
 const PORT = 8000;
 const {getDatabase, ref, get, update} = require('firebase/database');
-const { getMessaging } = require('firebase/messaging');
+//const { getMessaging } = require('firebase/messaging');
 const { getDownloadURL } = require("firebase/storage");
 const firebaseApp = firebase_app.initializeApp ({
   apiKey: "AIzaSyDkDXEzV5L6OxDSd7CFiQwrGEBuQeg59-E",
@@ -21,7 +21,7 @@ const firebase_storage = require('firebase/storage');
 
 const db = getDatabase(firebaseApp);
 const storage = firebase_storage.getStorage(firebaseApp);
-const messaging = getMessaging(firebaseApp);
+//const messaging = getMessaging(firebaseApp);
 
 app.use(cors());
 app.use(function(req, res, next) {

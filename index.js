@@ -49,7 +49,7 @@ app.post('/setPresence',function(req,res){
 })
 
 app.post('/setServerUrl',function(req,res){
-    let serverUrl = req.query.serverUrl === "serverUrl";
+    let serverUrl = req.query.serverUrl;
     update(ref(db, `/`), {
         serverUrl:serverUrl,
       });

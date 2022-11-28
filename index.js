@@ -73,11 +73,11 @@ app.get('/getPersonDetected',async function(req,res){
 })
 
 app.post('/setPersonDetected',function(req,res){
-    let personDetected = req.query.personDetected === "true";
+    let person_detected = req.query.person_detected === "true";
     update(ref(db, `/`), {
-        personDetected:personDetected,
+        person_detected:person_detected,
       });
-      res.send("personDetected alterado!");
+      res.send("person_detected alterado!");
 })
 
 app.listen(PORT, () => {

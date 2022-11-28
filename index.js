@@ -40,12 +40,20 @@ app.get('/getMode',async function(req,res){
     });
 })
 
-app.post('/setMode',function(req,res){
-    let mode = req.query.mode === "true";
+app.post('/setPresence',function(req,res){
+    let presence = req.query.presence === "true";
     update(ref(db, `/`), {
-        mode:mode,
+        presence:presence,
       });
-      res.send("modo alterado!");
+      res.send("presença alterado!");
+})
+
+app.post('/setServerUrl',function(req,res){
+    let serverUrl = req.query.serverUrl === "serverUrl";
+    update(ref(db, `/`), {
+        serverUrl:serverUrl,
+      });
+      res.send("serverUrl alterado!");
 })
 
 app.listen(PORT, () => {

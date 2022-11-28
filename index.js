@@ -72,6 +72,13 @@ app.get('/getPersonDetected',async function(req,res){
     });
 })
 
+app.post('/setPersonDetected',function(req,res){
+    let personDetected = req.query.personDetected === "true";
+    update(ref(db, `/`), {
+        personDetected:personDetected,
+      });
+      res.send("personDetected alterado!");
+})
 
 app.listen(PORT, () => {
     console.log("server is running");

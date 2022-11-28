@@ -40,6 +40,14 @@ app.get('/getMode',async function(req,res){
     });
 })
 
+app.get('/getOperationMode',async function(req,res){
+    await get(ref(db, `mode`)).then((snapshot) => {
+        if (snapshot.exists()) {
+            res.send(snapshot.val());
+        }
+    });
+})
+
 app.post('/setPresence',function(req,res){
     let presence = req.query.presence === "true";
     update(ref(db, `/`), {

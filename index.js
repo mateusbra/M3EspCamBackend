@@ -64,6 +64,13 @@ app.post('/setMode',function(req,res){
       res.send("modo alterado!");
 })
 
+app.get('/getPersonDetected',function(req,res){
+    update(ref(db, `person_detected`), {
+        mode:mode,
+      });
+      res.send(snapshot.val());
+})
+
 
 app.listen(PORT, () => {
     console.log("server is running");

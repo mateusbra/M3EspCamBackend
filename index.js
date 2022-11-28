@@ -64,11 +64,12 @@ app.post('/setMode',function(req,res){
       res.send("modo alterado!");
 })
 
-app.get('/getPersonDetected',function(req,res){
-    update(ref(db, `person_detected`), {
-        mode:mode,
-      });
-      res.send(snapshot.val());
+app.get('/getPersonDetected',async function(req,res){
+    await get(ref(db, `person_detected`)).then((snapshot) => {
+        if (snapshot.exists()) {
+            res.send(snapshot.val());
+        }
+    });
 })
 
 
